@@ -9,6 +9,10 @@
       minimal = {
         path = ./minimal;
         description = "A very basic flake with direnv support";
+      }
+      rust = {
+        path = ./rust;
+        description = "Flake for rust development";
       };
     };
     defaultTemplate = self.templates.minimal;
