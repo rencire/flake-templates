@@ -14,6 +14,10 @@
         path = ./rust;
         description = "Flake for rust development";
       };
+      tauri = {
+        path = ./tauri;
+        description = "Flake for creating tauri projects";
+      };
     };
     defaultTemplate = self.templates.minimal;
   };
