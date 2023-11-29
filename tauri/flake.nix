@@ -28,6 +28,7 @@
       ]) ++ (lib.optionals stdenv.isDarwin [
         # Add macos specific dependencies here
         libiconv
+        darwin.apple_sdk.frameworks.Cocoa
         darwin.apple_sdk.frameworks.WebKit        
       ]);
     });
