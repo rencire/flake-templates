@@ -1,7 +1,7 @@
 {
   description = "A basic flake with a shell";
   inputs.nixpkgs.url =  "github:NixOS/nixpkgs/nixpkgs-unstable";
-  flakelight.url = "github:accelbread/flakelight";
+  inputs.flakelight.url = "github:accelbread/flakelight";
 
   outputs = { flakelight, ... }@inputs:
     flakelight ./. {
