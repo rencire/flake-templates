@@ -1,18 +1,13 @@
 {
   description = "A basic flake with a shell";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.nixpkgs.url =  "github:NixOS/nixpkgs/nixpkgs-unstable";
+  flakelight.url = "github:accelbread/flakelight";
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in 
-    with pkgs; {
-      devShell = mkShell {
-        nativeBuildInputs = [ pkgs.bashInteractive ];
-        buildInputs = [ 
-        # add packages here
-        ];
+  outputs = { flakelight, ... }@inputs:
+    flakelight ./. {
+      inherit inputs;
+      devShell = pkgs: {
+        packages = with pkgs; [ git ]; 
       };
-    });
+    };
 }
