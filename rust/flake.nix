@@ -7,19 +7,25 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, flake-utils, fenix }:
-    flake-utils.lib.eachDefaultSystem (system: 
+  outputs =
+    {
+      nixpkgs,
+      flake-utils,
+      fenix,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           overlays = [ fenix.overlay ];
-          inherit system ;
+          inherit system;
         };
-      in 
-      with pkgs; 
+      in
+      with pkgs;
       {
         devShells.default = mkShell {
           nativeBuildInputs = [ ];
-          buildInputs = [ 
+          buildInputs = [
             (fenix.packages.${system}.complete.withComponents [
               "cargo"
               "clippy"
@@ -30,5 +36,6 @@
             rust-analyzer-nightly
           ];
         };
-      });
+      }
+    );
 }
