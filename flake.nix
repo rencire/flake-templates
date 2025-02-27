@@ -8,6 +8,10 @@
           path = ./hello;
           description = "Minimal flake with hello program";
         };
+        flakelight-module = {
+          path = ./flakelight-module;
+          description = "Flake for creating a flakelight module";
+        };
         minimal = {
           path = ./minimal;
           description = "A very basic flake with direnv support";
