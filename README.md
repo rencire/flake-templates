@@ -16,4 +16,4 @@ nix flake init -t github:rencire/flake-templates/main#minimal
 ```
 
 ## Notes
-- Each template is `direnv`-aware
+- Each template is [`direnv`](https://github.com/direnv/direnv)-aware
