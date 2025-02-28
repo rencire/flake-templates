@@ -3,10 +3,9 @@
   inputs.flakelight.url = "github:accelbread/flakelight";
 
   outputs =
-    { flakelight, ... }@inputs:
+    { flakelight, ... }:
     flakelight ./. {
-      inherit inputs;
       imports = [ flakelight.flakelightModules.flakelightModule ];
-      flakelightModule = ./flakelight-my-module;
+      flakelightModule = ./flakelight-my-module.nix;
     };
 }
