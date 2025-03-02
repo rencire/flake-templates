@@ -16,6 +16,10 @@
           path = ./minimal;
           description = "A very basic flake with direnv support";
         };
+        nodejs = {
+          path = ./nodejs;
+          description = "Flake for nodejs development";
+        };
         rust = {
           path = ./rust;
           description = "Flake for rust development";
