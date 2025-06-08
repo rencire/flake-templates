@@ -12,6 +12,10 @@
           path = ./flakelight-module;
           description = "Flake for creating a flakelight module";
         };
+        flakelight-package = {
+          path = ./flakelight-package;
+          description = "Flake for creating a flakelight default package";
+        };
         minimal = {
           path = ./minimal;
           description = "A very basic flake with direnv support";
