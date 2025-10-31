@@ -1,7 +1,10 @@
 {
   description = "A basic flake for rust development";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flakelight.url = "github:accelbread/flakelight";
+  inputs.flakelight = {
+    url = "github:accelbread/flakelight";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   # For nightly rust
   inputs.fenix = {
     url = "github:nix-community/fenix";
@@ -31,12 +34,13 @@
         default =
           { pkgs, ... }:
           let
-            rustToolchain = (
-              fenix.packages.${pkgs.system}.minimal.withComponents [
-                "cargo"
-                "rustc"
-              ]
-            );
+            rustToolchain =
+              with fenix.packages.${pkgs.system};
+              combine [
+                minimal."cargo"
+                minimal."rustc"
+                # targets.wasm32-unknown-unknown.latest.rust-std
+              ];
             craneLib = (crane.mkLib pkgs).overrideToolchain rustToolchain;
             cargoArtifacts = craneLib.buildDepsOnly {
               src = ./.;
@@ -67,12 +71,14 @@
           with pkgs;
           let
             rustToolchain = (
-              fenix.packages.${pkgs.system}.complete.withComponents [
-                "cargo"
-                "clippy"
-                "rust-src"
-                "rustc"
-                "rustfmt"
+              with fenix.packages.${pkgs.system};
+              combine [
+                complete."cargo"
+                complete."clippy"
+                complete."rust-src"
+                complete."rustc"
+                complete."rustfmt"
+                # targets.wasm32-unknown-unknown.latest.rust-std
               ]
             );
           in
