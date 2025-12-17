@@ -24,6 +24,10 @@
           path = ./nodejs;
           description = "Flake for nodejs development";
         };
+        python = {
+          path = ./python;
+          description = "Flake for python development";
+        };
         rust = {
           path = ./rust;
           description = "Flake for rust development";
