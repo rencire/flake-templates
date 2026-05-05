@@ -1,21 +1,27 @@
 {
   description = "A collection of flake templates";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flakelight = {
-    url = "github:accelbread/flakelight";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-  inputs.agent-skills = {
-    url = "github:Kyure-A/agent-skills-nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-  inputs."personal-skills" = {
-    url = "github:rencire/agent-skills";
-    flake = false;
-  };
-  inputs.entire-cli-nix = {
-    url = "github:rencire/entire-cli-nix";
-    inputs.nixpkgs.follows = "nixpkgs";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flakelight = {
+      url = "github:accelbread/flakelight";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    "personal-skills" = {
+      url = "github:rencire/agent-skills";
+      flake = false;
+    };
+    entire-cli-nix = {
+      url = "github:rencire/entire-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    confix = {
+      url = "github:rencire/confix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     { self, flakelight, ... }@inputs:
@@ -73,7 +79,7 @@
         description = "Flake for local LLM agent workflows with entire";
       };
     in
-    (flakelight ./agentic {
+    (flakelight ./. {
       inherit inputs;
       systems = [
         "aarch64-darwin"
@@ -87,6 +93,10 @@
           bundle = agentLib.mkBundle {
             inherit pkgs selection;
           };
+          configured = inputs.confix.lib.configure {
+             inherit pkgs;
+             configDir = ./.confix;
+           };
         in
         {
           packages = [
@@ -94,6 +104,7 @@
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
             pkgs.git
             pkgs.jujutsu
+            configured.opencode
           ];
           shellHook =
             agentLib.mkShellHook {
