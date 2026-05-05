@@ -89,6 +89,7 @@
           packages = [
             # We use entire.io to capture agent-assisted code changes
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
+            pkgs.jj
           ];
           shellHook = agentLib.mkShellHook {
             inherit pkgs bundle;
