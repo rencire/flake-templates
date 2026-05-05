@@ -17,9 +17,10 @@
       };
       # NOTE: This server still needs GITHUB_PERSONAL_ACCESS_TOKEN wired in
       # at runtime later, ideally via sops-nix or another secret manager.
+      # Once the access token is set, make sure to set enabled = true.
       github = {
         type = "local";
-        enabled = true;
+        enabled = false;
         command = [
           (lib.getExe pkgs.github-mcp-server)
           "stdio"
