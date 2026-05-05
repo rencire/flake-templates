@@ -88,6 +88,7 @@
         {
           packages = [
             # We use entire.io to capture agent-assisted code changes
+            pkgs.git
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
             pkgs.jj
           ];
