@@ -59,6 +59,9 @@
         codex = agentLib.defaultLocalTargets.codex // {
           enable = true;
         };
+        gemini = agentLib.defaultLocalTargets.gemini // {
+          enable = true;
+        };
         opencode = agentLib.defaultLocalTargets.agents // {
           dest = ".opencode/skills";
           enable = true;
