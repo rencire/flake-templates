@@ -102,7 +102,7 @@
             }
             # Optional: uncomment below to specify config for jj
             + ''
-              # export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
+              export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
             '';
         };
       templates = {
