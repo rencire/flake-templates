@@ -18,6 +18,10 @@
       url = "github:rencire/entire-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     confix = {
       url = "github:rencire/confix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,24 +96,27 @@
       devShell =
         pkgs:
         let
+          pkgs' = pkgs.extend inputs."llm-agents".overlays.shared-nixpkgs;
           bundle = agentLib.mkBundle {
-            inherit pkgs selection;
+            pkgs = pkgs';
+            inherit selection;
           };
           configured = inputs.confix.lib.configure {
-            inherit pkgs;
+            pkgs = pkgs';
             configDir = ./.confix;
           };
         in
         {
           packages = [
-            inputs."entire-cli-nix".packages.${pkgs.system}.entire
+            inputs."entire-cli-nix".packages.${pkgs'.system}.entire
             configured.opencode
-            pkgs.git
-            pkgs.jj
+            pkgs'.git
+            pkgs'.jj
           ];
           shellHook =
             agentLib.mkShellHook {
-              inherit pkgs bundle;
+              pkgs = pkgs';
+              inherit bundle;
               targets = localTargets;
             }
             # Optional: uncomment below to specify config for jj

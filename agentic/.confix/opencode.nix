@@ -1,13 +1,15 @@
 # .confix/opencode.nix
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
+  package = pkgs.llm-agents.opencode;
   settings = {
+    "$schema" = "https://opencode.ai/config.json";
     mcp = {
       nixos = {
         type = "local";
         enabled = true;
         command = [
-          "${pkgs.nix}/bin/nix"
+          (lib.getExe pkgs.nix)
           "run"
           "github:utensils/mcp-nixos"
           "--"
@@ -19,7 +21,7 @@
         type = "local";
         enabled = true;
         command = [
-          "${pkgs.github-mcp-server}/bin/github-mcp-server"
+          (lib.getExe pkgs.github-mcp-server)
           "stdio"
         ];
         environment = {
