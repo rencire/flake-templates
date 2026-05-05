@@ -10,12 +10,16 @@
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    "personal-skills" = {
+    personal-skills = {
       url = "github:rencire/agent-skills";
       flake = false;
     };
     entire-cli-nix = {
       url = "github:rencire/entire-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    confix = {
+      url = "github:rencire/confix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -91,10 +95,17 @@
           bundle = agentLib.mkBundle {
             inherit pkgs selection;
           };
+          configured = inputs.confix.lib.configure {
+            inherit pkgs;
+            configDir = ./.confix;
+          };
         in
         {
           packages = [
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
+            configured.opencode
+            pkgs.git
+            pkgs.jj
           ];
           shellHook =
             agentLib.mkShellHook {

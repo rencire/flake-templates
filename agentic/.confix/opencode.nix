@@ -7,10 +7,7 @@
         type = "local";
         enabled = true;
         command = [
-          "${pkgs.nix}/bin/nix"
-          "run"
-          "github:utensils/mcp-nixos"
-          "--"
+          "${pkgs.mcp-nixos}/bin/mcp-nixos"
         ];
       };
       # NOTE: This server still needs GITHUB_PERSONAL_ACCESS_TOKEN wired in

@@ -10,7 +10,7 @@
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    "personal-skills" = {
+    personal-skills = {
       url = "github:rencire/agent-skills";
       flake = false;
     };
@@ -94,9 +94,9 @@
             inherit pkgs selection;
           };
           configured = inputs.confix.lib.configure {
-             inherit pkgs;
-             configDir = ./.confix;
-           };
+            inherit pkgs;
+            configDir = ./.confix;
+          };
         in
         {
           packages = [
