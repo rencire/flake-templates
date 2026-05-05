@@ -77,6 +77,10 @@
           enable = true;
         };
       };
+      agenticTemplate = {
+        path = ./agentic;
+        description = "Flake for local LLM agent workflows with entire";
+      };
     in
     flakelight ./. {
       inherit inputs;
@@ -124,5 +128,41 @@
               # export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
             '';
         };
+      templates = {
+        hello = {
+          path = ./hello;
+          description = "Minimal flake with hello program";
+        };
+        flakelight-module = {
+          path = ./flakelight-module;
+          description = "Flake for creating a flakelight module";
+        };
+        flakelight-package = {
+          path = ./flakelight-package;
+          description = "Flake for creating a flakelight default package";
+        };
+        minimal = {
+          path = ./minimal;
+          description = "A very basic flake with direnv support";
+        };
+        agentic = agenticTemplate;
+        nodejs = {
+          path = ./nodejs;
+          description = "Flake for nodejs development";
+        };
+        python = {
+          path = ./python;
+          description = "Flake for python development";
+        };
+        rust = {
+          path = ./rust;
+          description = "Flake for rust development";
+        };
+        tauri = {
+          path = ./tauri;
+          description = "Flake for creating tauri projects";
+        };
+      };
+      template = agenticTemplate;
     };
 }
