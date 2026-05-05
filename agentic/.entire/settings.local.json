@@ -1,0 +1,8 @@
+{
+  "strategy_options": {
+    "checkpoint_remote": {
+      "provider": "github",
+      "repo": "<owner>/<checkpoint_repo>"
+    }
+  }
+}
