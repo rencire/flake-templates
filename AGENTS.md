@@ -1,3 +1,4 @@
-# Run project commands through `nix develop -c ...`, including Git commands.
+# Repo Instructions
 
-Use `git` for version-control tasks in this repo.
+- Run project commands through `nix develop -c ...`, including Git commands.
+- Use `git` for version-control tasks in this repo.
