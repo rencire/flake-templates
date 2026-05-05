@@ -64,17 +64,7 @@
           enable = true;
         };
         claude = agentLib.defaultLocalTargets.claude // {
-          enable = true;
-        };
-        codex = agentLib.defaultLocalTargets.codex // {
-          enable = true;
-        };
-        gemini = agentLib.defaultLocalTargets.gemini // {
-          enable = true;
-        };
-        opencode = agentLib.defaultLocalTargets.agents // {
-          dest = ".opencode/skills";
-          enable = true;
+          enable = false;
         };
       };
       agenticTemplate = {
@@ -114,19 +104,17 @@
           packages = [
             inputs."entire-cli-nix".packages.${pkgs'.system}.entire
             configured.opencode
+            # pkgs'.llm-agents.claude-code
+            # pkgs'.llm-agents.codex
+            # pkgs'.llm-agents.gemini-cli
             pkgs'.git
-            pkgs'.jujutsu
           ];
           shellHook =
             agentLib.mkShellHook {
               pkgs = pkgs';
               inherit bundle;
               targets = localTargets;
-            }
-            # Optional: uncomment below to specify config for jj
-            + ''
-              # export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
-            '';
+            };
         };
       templates = {
         hello = {

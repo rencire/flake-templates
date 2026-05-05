@@ -1,7 +1,0 @@
-interface:
-  display_name: "Doc Table of Contents"
-  short_description: "Add a manual TOC to repo docs"
-  default_prompt: "Use $doc-table-of-contents to add or update a concise table of contents in a repo Markdown document."
-
-policy:
-  allow_implicit_invocation: true

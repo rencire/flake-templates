@@ -1,7 +1,0 @@
-interface:
-  display_name: "Public Repo Readiness"
-  short_description: "Scan for publish risks before pushing"
-  default_prompt: "Use $public-repo-readiness to review the pending repo changes for secrets, machine-specific details, and other publication risks."
-
-policy:
-  allow_implicit_invocation: true
