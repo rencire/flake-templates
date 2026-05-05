@@ -23,11 +23,7 @@
       agentLib = inputs."agent-skills".lib."agent-skills";
       # Skills are sourced from the personal repo only for now.
       # If we add more sources later, keep skill names unique across them.
-      personalSkills =
-        if inputs ? "personal-skills" then
-          inputs."personal-skills"
-        else
-          null;
+      personalSkills = if inputs ? "personal-skills" then inputs."personal-skills" else null;
       sources =
         if personalSkills == null then
           { }
@@ -95,14 +91,19 @@
         {
           packages = [
             # We use entire.io to capture agent-assisted code changes
-            pkgs.git
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
+            pkgs.git
             pkgs.jujutsu
           ];
           shellHook = agentLib.mkShellHook {
             inherit pkgs bundle;
             targets = localTargets;
-          };
+          }
+          # Optional: Add this to specify config for jj
+          # + ''
+          #   export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
+          # ''
+          ;
         };
       templates = {
         hello = {
