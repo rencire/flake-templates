@@ -111,7 +111,7 @@
             inputs."entire-cli-nix".packages.${pkgs'.system}.entire
             configured.opencode
             pkgs'.git
-            pkgs'.jj
+            pkgs'.jujutsu
           ];
           shellHook =
             agentLib.mkShellHook {

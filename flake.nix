@@ -107,10 +107,10 @@
         {
           packages = [
             # We use entire.io to capture agent-assisted code changes
-            inputs."entire-cli-nix".packages.${pkgs.system}.entire
+            inputs."entire-cli-nix".packages.${pkgs'.system}.entire
+            configured.opencode
             pkgs'.git
             pkgs'.jujutsu
-            configured.opencode
           ];
           shellHook =
             agentLib.mkShellHook {
