@@ -95,15 +95,15 @@
             pkgs.git
             pkgs.jujutsu
           ];
-          shellHook = agentLib.mkShellHook {
-            inherit pkgs bundle;
-            targets = localTargets;
-          }
-          # Optional: Add this to specify config for jj
-          # + ''
-          #   export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
-          # ''
-          ;
+          shellHook =
+            agentLib.mkShellHook {
+              inherit pkgs bundle;
+              targets = localTargets;
+            }
+            # Optional: uncomment below to specify config for jj
+            + ''
+              # export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
+            '';
         };
       templates = {
         hello = {

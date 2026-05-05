@@ -22,11 +22,7 @@
     { flakelight, ... }@inputs:
     let
       agentLib = inputs."agent-skills".lib."agent-skills";
-      personalSkills =
-        if inputs ? "personal-skills" then
-          inputs."personal-skills"
-        else
-          null;
+      personalSkills = if inputs ? "personal-skills" then inputs."personal-skills" else null;
       sources =
         if personalSkills == null then
           { }
@@ -98,10 +94,15 @@
           packages = [
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
           ];
-          shellHook = agentLib.mkShellHook {
-            inherit pkgs bundle;
-            targets = localTargets;
-          };
+          shellHook =
+            agentLib.mkShellHook {
+              inherit pkgs bundle;
+              targets = localTargets;
+            }
+            # Optional: uncomment below to specify config for jj
+            + ''
+              # export JJ_CONFIG="$HOME/.config/jj/config-oss.toml"
+            '';
         };
     };
 }

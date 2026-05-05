@@ -1,2 +1,6 @@
+.aider
+.aider.*
+.aider*/
+.DS_Store
 .direnv/
 target/
