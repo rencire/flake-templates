@@ -16,6 +16,7 @@
       devShell = pkgs: {
         packages = with pkgs; [
           python3
+          google-cloud-sdk
         ];
       };
     };
