@@ -16,6 +16,11 @@ cd my_project
 nix flake init -t github:rencire/flake-templates/main#minimal
 ```
 
+Initialize new flake project folder with the agent-enabled "agentic" template:
+```
+nix flake new -t github:rencire/flake-templates/main#agentic my_agentic_project
+```
+
 ## Notes
 - Most (if not all) templates leverage the [`flakelight`](https://github.com/nix-community/flakelight) framework.
 - Each template is [`direnv`](https://github.com/direnv/direnv)-aware

@@ -1,0 +1,129 @@
+{
+  "nodes": {
+    "agent-skills": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777875835,
+        "narHash": "sha256-+ghBYIh477YxDPd0sKeD4AwnKJSOXKT0nHuAAGHL1cQ=",
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "rev": "c6cb03f84cda0dc3f5daa05bf4d49f56c182f690",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "type": "github"
+      }
+    },
+    "entire-cli-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776667978,
+        "narHash": "sha256-ls0FNxBnwseNqZLUx/1016Z7Blh4WHT5c12XuUJJs50=",
+        "owner": "rencire",
+        "repo": "entire-cli-nix",
+        "rev": "1e4db097d4172f5e399605a89401716655ca5ab6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rencire",
+        "repo": "entire-cli-nix",
+        "type": "github"
+      }
+    },
+    "flakelight": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777904098,
+        "narHash": "sha256-NMyKWHiiTOzUzbdWlYz3zTNnJLhExiEyAUOv2igpg/I=",
+        "owner": "accelbread",
+        "repo": "flakelight",
+        "rev": "d28eb3820853695194dbad8f1846639839bd3959",
+        "type": "github"
+      },
+      "original": {
+        "owner": "accelbread",
+        "repo": "flakelight",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "agent-skills",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777852249,
+        "narHash": "sha256-XdbGWnFlX4McOEG5NioVsp35Ic6XL/rXnp8as71cu6o=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "c909892de502b4de9e92838a503c09a9c8ebe4aa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1777826146,
+        "narHash": "sha256-wQ/iN5Zp5VIa3ebBibijPnLyKhor+xEbDy4d0goa9Zs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "73c703c22422b8951895a960959dbbaca7296492",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "personal-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777949244,
+        "narHash": "sha256-L121xvS30p3xRjqvwY+gqV6duyg7CUGE91sND5gaqPI=",
+        "owner": "rencire",
+        "repo": "agent-skills",
+        "rev": "f51bede311eb4c2737c08446c4edc255a7ba9fa8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rencire",
+        "repo": "agent-skills",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "agent-skills": "agent-skills",
+        "entire-cli-nix": "entire-cli-nix",
+        "flakelight": "flakelight",
+        "nixpkgs": "nixpkgs",
+        "personal-skills": "personal-skills"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
