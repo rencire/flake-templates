@@ -1,0 +1,7 @@
+interface:
+  display_name: "Nix Repo"
+  short_description: "Work safely inside Nix-managed repos"
+  default_prompt: "Use $nix-repo to work in a Nix-managed repo, read local guidance first, and run commands through nix develop."
+
+policy:
+  allow_implicit_invocation: true

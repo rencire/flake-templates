@@ -39,7 +39,11 @@
             };
           };
       enabledSkills = [
-        # Add skills here
+        "dev-loop"
+        "doc-table-of-contents"
+        "nix-repo"
+        "public-repo-readiness"
+        "vcs"
       ];
       catalog = agentLib.discoverCatalog sources;
       allowlist = agentLib.allowlistFor {
@@ -93,7 +97,7 @@
             # We use entire.io to capture agent-assisted code changes
             pkgs.git
             inputs."entire-cli-nix".packages.${pkgs.system}.entire
-            pkgs.jj
+            pkgs.jujutsu
           ];
           shellHook = agentLib.mkShellHook {
             inherit pkgs bundle;

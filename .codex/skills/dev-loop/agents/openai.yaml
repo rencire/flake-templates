@@ -1,0 +1,7 @@
+interface:
+  display_name: "Dev Loop"
+  short_description: "Implementation and verification workflow"
+  default_prompt: "Use $dev-loop to plan, implement, verify, refactor, and re-verify a non-trivial code change."
+
+policy:
+  allow_implicit_invocation: true

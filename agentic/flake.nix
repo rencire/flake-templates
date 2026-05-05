@@ -38,7 +38,11 @@
             };
           };
       enabledSkills = [
-        # Add skills here
+        "dev-loop"
+        "doc-table-of-contents"
+        "nix-repo"
+        "public-repo-readiness"
+        "vcs"
       ];
       catalog = agentLib.discoverCatalog sources;
       allowlist = agentLib.allowlistFor {

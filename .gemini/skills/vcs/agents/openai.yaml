@@ -1,0 +1,7 @@
+interface:
+  display_name: "VCS"
+  short_description: "Common Git and Jujutsu workflows"
+  default_prompt: "Use $vcs to translate Git and Jujutsu workflows, commit changes, update bookmarks, and push correctly."
+
+policy:
+  allow_implicit_invocation: true

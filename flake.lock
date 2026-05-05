@@ -101,11 +101,11 @@
     "personal-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1777949244,
-        "narHash": "sha256-L121xvS30p3xRjqvwY+gqV6duyg7CUGE91sND5gaqPI=",
+        "lastModified": 1777952454,
+        "narHash": "sha256-jXxQY3hdju8950geiS0hRRJRAH4fiEY6/1T+mB+vIAI=",
         "owner": "rencire",
         "repo": "agent-skills",
-        "rev": "f51bede311eb4c2737c08446c4edc255a7ba9fa8",
+        "rev": "e4727a075471d0dcf55af05e230a8d2360ae31b2",
         "type": "github"
       },
       "original": {
