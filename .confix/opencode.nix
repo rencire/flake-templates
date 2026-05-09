@@ -4,6 +4,9 @@
   package = pkgs.llm-agents.opencode;
   settings = {
     "$schema" = "https://opencode.ai/config.json";
+    plugin = [
+      "opencode-worktree"
+    ];
     mcp = {
       nixos = {
         type = "local";
