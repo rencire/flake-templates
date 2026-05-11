@@ -2,7 +2,10 @@
 
 - This template installs local agent skills into common harness targets on
   `nix develop`.
-- It also adds `entire` to the shell, following the same pattern used in
-  `workframe`.
-- The default `local-skills` and `entire-cli-nix` inputs are machine-local
-  paths and should be adjusted if you want a portable setup.
+- Agent enablement is driven by `entireConfig` in `flake.nix`.
+- Run `entire-init` after `nix develop` to let Entire install hooks and enable
+  the configured agents.
+- `entire-init` creates repo config like `.entire/` and agent-specific config
+  directories such as `.opencode/`; commit those in the generated project.
+- Set `entireConfig.checkpointRemote` in `flake.nix` if you want the template to
+  write a committed `.entire/settings.json` before enabling agents.

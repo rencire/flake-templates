@@ -32,6 +32,10 @@
     { flakelight, ... }@inputs:
     let
       agentSkillsLib = inputs."agent-skills".lib."agent-skills";
+      entireConfig = {
+        agents = [ "opencode" ];
+        checkpointRemote = null;
+      };
       mkAgentBundle =
         pkgs:
         let
@@ -65,6 +69,48 @@
           enable = false;
         };
       };
+      mkEntireInit = pkgs:
+        let
+          entire = inputs."entire-cli-nix".packages.${pkgs.system}.entire;
+          writeCheckpointConfig =
+            if entireConfig.checkpointRemote == null then
+              ""
+            else
+              let
+                settingsJson = builtins.toJSON {
+                  enabled = true;
+                  telemetry = false;
+                  strategy_options = {
+                    checkpoint_remote = entireConfig.checkpointRemote;
+                  };
+                };
+              in
+              ''
+                mkdir -p .entire
+                cat > .entire/settings.json <<'EOF'
+                ${settingsJson}
+                EOF
+              '';
+          agentsArray = builtins.concatStringsSep "\n" (map (agent: ''"${agent}"'') entireConfig.agents);
+        in
+        pkgs.writeShellApplication {
+          name = "entire-init";
+          text = ''
+            set -eu
+
+            ${writeCheckpointConfig}
+
+            agents=(
+              ${agentsArray}
+            )
+
+            ${pkgs.lib.getExe entire} enable --project --agent "''${agents[0]}"
+
+            for agent in "''${agents[@]:1}"; do
+              ${pkgs.lib.getExe entire} agent add "$agent"
+            done
+          '';
+        };
     in
     flakelight ./. {
       inherit inputs;
@@ -86,11 +132,19 @@
             pkgs = pkgs';
             configDir = ./.confix;
           };
+          agentPackages = map (
+            agent:
+            if agent == "opencode" then
+              configured.opencode
+            else
+              throw "Unsupported entire agent: ${agent}"
+          ) entireConfig.agents;
         in
         {
           packages = [
             inputs."entire-cli-nix".packages.${pkgs'.system}.entire
-            configured.opencode
+            (mkEntireInit pkgs')
+          ] ++ agentPackages ++ [
             # pkgs'.llm-agents.claude-code
             # pkgs'.llm-agents.codex
             # pkgs'.llm-agents.gemini-cli

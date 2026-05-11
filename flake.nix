@@ -32,6 +32,9 @@
     { flakelight, ... }@inputs:
     let
       agentSkillsLib = inputs."agent-skills".lib."agent-skills";
+      entireConfig = {
+        agents = [ "opencode" ];
+      };
       mkAgentBundle =
         pkgs:
         let
@@ -65,6 +68,27 @@
           enable = false;
         };
       };
+      mkEntireInit = pkgs:
+        let
+          entire = inputs."entire-cli-nix".packages.${pkgs.system}.entire;
+          agentsArray = builtins.concatStringsSep "\n" (map (agent: ''"${agent}"'') entireConfig.agents);
+        in
+        pkgs.writeShellApplication {
+          name = "entire-init";
+          text = ''
+            set -eu
+
+            agents=(
+              ${agentsArray}
+            )
+
+            ${pkgs.lib.getExe entire} enable --project --agent "''${agents[0]}"
+
+            for agent in "''${agents[@]:1}"; do
+              ${pkgs.lib.getExe entire} agent add "$agent"
+            done
+          '';
+        };
       agenticTemplate = {
         path = ./agentic;
         description = "Flake for local LLM agent workflows with entire";
@@ -94,6 +118,7 @@
         {
           packages = [
             inputs."entire-cli-nix".packages.${pkgs'.system}.entire
+            (mkEntireInit pkgs')
             configured.opencode
             # pkgs'.llm-agents.claude-code
             # pkgs'.llm-agents.codex
