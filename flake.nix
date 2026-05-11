@@ -31,39 +31,37 @@
   outputs =
     { flakelight, ... }@inputs:
     let
-      agentLib = inputs."agent-skills".lib."agent-skills";
-      personalSkills = if inputs ? "personal-skills" then inputs."personal-skills" else null;
-      sources =
-        if personalSkills == null then
-          { }
-        else
-          {
+      agentSkillsLib = inputs."agent-skills".lib."agent-skills";
+      mkAgentBundle =
+        pkgs:
+        let
+          sources = {
             shared = {
-              path = personalSkills;
+              path = inputs."personal-skills";
               subdir = "skills";
             };
           };
-      enabledSkills = [
-        "dev-loop"
-        "doc-table-of-contents"
-        "nix-repo"
-        "public-repo-readiness"
-        "vcs"
-      ];
-      catalog = agentLib.discoverCatalog sources;
-      allowlist = agentLib.allowlistFor {
-        inherit catalog sources;
-        enable = enabledSkills;
-      };
-      selection = agentLib.selectSkills {
-        inherit catalog allowlist sources;
-        skills = { };
-      };
+        in
+        agentSkillsLib.mkBundle {
+          inherit pkgs;
+          selection = agentSkillsLib.selectSkills {
+            catalog = agentSkillsLib.discoverCatalog sources;
+            inherit sources;
+            allowlist = [
+              "dev-loop"
+              "doc-table-of-contents"
+              "nix-repo"
+              "public-repo-readiness"
+              "vcs"
+            ];
+            skills = { };
+          };
+        };
       localTargets = {
-        agents = agentLib.defaultLocalTargets.agents // {
+        agents = agentSkillsLib.defaultLocalTargets.agents // {
           enable = true;
         };
-        claude = agentLib.defaultLocalTargets.claude // {
+        claude = agentSkillsLib.defaultLocalTargets.claude // {
           enable = false;
         };
       };
@@ -81,20 +79,13 @@
         "x86_64-linux"
       ];
       packages = {
-        default =
-          { pkgs, ... }:
-          agentLib.mkBundle {
-            inherit pkgs selection;
-          };
+        default = { pkgs, ... }: mkAgentBundle pkgs;
       };
       devShell =
         pkgs:
         let
           pkgs' = pkgs.extend inputs."llm-agents".overlays.shared-nixpkgs;
-          bundle = agentLib.mkBundle {
-            pkgs = pkgs';
-            inherit selection;
-          };
+          bundle = mkAgentBundle pkgs';
           configured = inputs.confix.lib.configure {
             pkgs = pkgs';
             configDir = ./.confix;
@@ -109,12 +100,11 @@
             # pkgs'.llm-agents.gemini-cli
             pkgs'.git
           ];
-          shellHook =
-            agentLib.mkShellHook {
-              pkgs = pkgs';
-              inherit bundle;
-              targets = localTargets;
-            };
+          shellHook = agentSkillsLib.mkShellHook {
+            pkgs = pkgs';
+            inherit bundle;
+            targets = localTargets;
+          };
         };
       templates = {
         hello = {
