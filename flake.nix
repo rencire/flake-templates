@@ -69,25 +69,9 @@
         };
       };
       mkEntireInit = pkgs:
-        let
+        import ./nix/entire-init.nix {
+          inherit pkgs entireConfig;
           entire = inputs."entire-cli-nix".packages.${pkgs.system}.entire;
-          agentsArray = builtins.concatStringsSep "\n" (map (agent: ''"${agent}"'') entireConfig.agents);
-        in
-        pkgs.writeShellApplication {
-          name = "entire-init";
-          text = ''
-            set -eu
-
-            agents=(
-              ${agentsArray}
-            )
-
-            ${pkgs.lib.getExe entire} enable --project --agent "''${agents[0]}"
-
-            for agent in "''${agents[@]:1}"; do
-              ${pkgs.lib.getExe entire} agent add "$agent"
-            done
-          '';
         };
       agenticTemplate = {
         path = ./agentic;
