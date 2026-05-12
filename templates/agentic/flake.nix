@@ -95,19 +95,12 @@
             pkgs = pkgs';
             configDir = ./nix/confix;
           };
-          agentPackages = map (
-            agent:
-            if agent == "opencode" then
-              configured.opencode
-            else
-              throw "Unsupported entire agent: ${agent}"
-          ) entireConfig.agents;
         in
         {
           packages = [
             inputs."entire-cli-nix".packages.${pkgs'.system}.entire
             (mkEntireInit pkgs')
-          ] ++ agentPackages ++ [
+            configured.opencode
             # pkgs'.llm-agents.claude-code
             # pkgs'.llm-agents.codex
             # pkgs'.llm-agents.gemini-cli

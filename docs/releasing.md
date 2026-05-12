@@ -7,7 +7,7 @@
 
 ## Policy
 
-Semble uses Conventional Commits and git tags to drive releases.
+This repository uses Conventional Commits and git tags to drive releases.
 
 - Release boundaries are tags.
 - Version bumps are derived from merged commits since the previous tag.
