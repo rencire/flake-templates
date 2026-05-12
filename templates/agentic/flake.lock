@@ -576,6 +576,22 @@
         "type": "github"
       }
     },
+    "gstack": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778556958,
+        "narHash": "sha256-4Qns7n4f+TYjwsTscwHaGxpAFz++5Xo1D/XJILt46VQ=",
+        "owner": "garrytan",
+        "repo": "gstack",
+        "rev": "dc6252d1df7f1f650ea6e9b2bba7d08fab5de902",
+        "type": "github"
+      },
+      "original": {
+        "owner": "garrytan",
+        "repo": "gstack",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -913,6 +929,7 @@
         "confix": "confix",
         "entire-cli-nix": "entire-cli-nix",
         "flakelight": "flakelight_4",
+        "gstack": "gstack",
         "llm-agents": "llm-agents_2",
         "nix-wrapper-modules": "nix-wrapper-modules_2",
         "nixpkgs": "nixpkgs_4",

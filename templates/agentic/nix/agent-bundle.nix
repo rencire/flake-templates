@@ -1,28 +1,40 @@
 {
   agentSkillsLib,
-  personalSkills,
+  inputs,
 }:
 let
   sources = {
-    shared = {
-      path = personalSkills;
+    rencire = {
+      path = inputs."personal-skills";
       subdir = "skills";
+      idPrefix = "rencire";
     };
+    gstack = {
+      path = inputs.gstack;
+      subdir = ".";
+      idPrefix = "gstack";
+      filter.maxDepth = 1;
+    };
+  };
+  catalog = agentSkillsLib.discoverCatalog sources;
+  allowlist = agentSkillsLib.allowlistFor {
+    inherit catalog sources;
+    enable = [
+      "rencire/dev-loop"
+      "rencire/doc-table-of-contents"
+      "rencire/nix-repo"
+      "rencire/public-repo-readiness"
+      "rencire/vcs"
+      "gstack/gstack"
+      "gstack/review"
+    ];
   };
   bundle =
     pkgs:
     agentSkillsLib.mkBundle {
       inherit pkgs;
       selection = agentSkillsLib.selectSkills {
-        catalog = agentSkillsLib.discoverCatalog sources;
-        inherit sources;
-        allowlist = [
-          "dev-loop"
-          "doc-table-of-contents"
-          "nix-repo"
-          "public-repo-readiness"
-          "vcs"
-        ];
+        inherit catalog sources allowlist;
         skills = { };
       };
     };
