@@ -6,7 +6,7 @@
       agents = [ "opencode" ];
       checkpoint_remote = {
         provider = "github";
-        repo = "rencire/checkpoints";
+        repo = "rencire/entire-cli-flake-checkpoints";
       };
     };
   };

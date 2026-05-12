@@ -21,7 +21,10 @@ export const EntirePlugin: Plugin = async ({ directory }) => {
    * (e.g., $(git rev-parse --show-toplevel) for local-dev) is interpreted.
    */
   function hookCmd(hookName: string): string[] {
-    return ["sh", "-c", `${ENTIRE_CMD} hooks opencode ${hookName}`]
+    if (ENTIRE_CMD !== "entire") {
+      return ["sh", "-c", `${ENTIRE_CMD} hooks opencode ${hookName}`]
+    }
+    return ["sh", "-c", `if ! command -v entire >/dev/null 2>&1; then exit 0; fi; exec entire hooks opencode ${hookName}`]
   }
 
   /**
@@ -44,10 +47,10 @@ export const EntirePlugin: Plugin = async ({ directory }) => {
   }
 
   /**
-   * Synchronous variant for hooks that fire near process exit (turn-end, session-end).
-   * `opencode run` breaks its event loop on the same session.status idle event that
-   * triggers turn-end. The async callHook would be killed before completing.
-   * Bun.spawnSync blocks the event loop, preventing exit until the hook finishes.
+   * Synchronous variant for hooks that must complete before subsequent agent work
+   * or process exit. `turn-start` must finish initializing session state before a
+   * fast mid-turn commit can hit git hooks, and `turn-end` / `session-end` must
+   * finish before `opencode run` tears down its event loop.
    */
   function callHookSync(hookName: string, payload: Record<string, unknown>) {
     try {
@@ -63,6 +66,17 @@ export const EntirePlugin: Plugin = async ({ directory }) => {
     }
   }
 
+  function resetSessionTracking(sessionID: string) {
+    if (currentSessionID === sessionID) {
+      return false
+    }
+    seenUserMessages.clear()
+    messageStore.clear()
+    currentModel = null
+    currentSessionID = sessionID
+    return true
+  }
+
   return {
     event: async ({ event }) => {
       try {
@@ -71,26 +85,51 @@ export const EntirePlugin: Plugin = async ({ directory }) => {
             const session = (event as any).properties?.info
             if (!session?.id) break
             // Reset per-session tracking state when switching sessions.
-            if (currentSessionID !== session.id) {
-              seenUserMessages.clear()
-              messageStore.clear()
-              currentModel = null
-              await callHook("session-start", {
+            if (resetSessionTracking(session.id)) {
+              const json = JSON.stringify({
                 session_id: session.id,
               })
+              const proc = Bun.spawn(hookCmd("session-start"), {
+                cwd: directory,
+                stdin: new Blob([json + "\n"]),
+                stdout: "ignore",
+                stderr: "ignore",
+              })
+              await proc.exited
             }
-            currentSessionID = session.id
             break
           }
 
           case "message.updated": {
             const msg = (event as any).properties?.info
             if (!msg) break
+
+            if (msg.sessionID && resetSessionTracking(msg.sessionID)) {
+              callHookSync("session-start", {
+                session_id: msg.sessionID,
+              })
+            }
+
             // Store message metadata (role, time, tokens, etc.)
             messageStore.set(msg.id, msg)
             // Track model from assistant messages
             if (msg.role === "assistant" && msg.modelID) {
               currentModel = msg.modelID
+            }
+
+            // Fallback: some opencode run flows commit before any message.part.updated
+            // event is delivered for the user's prompt. Start the turn from the
+            // user message itself so git hooks see an ACTIVE session in time.
+            if (msg.role === "user" && !seenUserMessages.has(msg.id)) {
+              seenUserMessages.add(msg.id)
+              const sessionID = msg.sessionID ?? currentSessionID
+              if (sessionID) {
+                callHookSync("turn-start", {
+                  session_id: sessionID,
+                  prompt: "",
+                  model: currentModel ?? "",
+                })
+              }
             }
             break
           }
@@ -105,7 +144,7 @@ export const EntirePlugin: Plugin = async ({ directory }) => {
               seenUserMessages.add(msg.id)
               const sessionID = msg.sessionID ?? currentSessionID
               if (sessionID) {
-                await callHook("turn-start", {
+                callHookSync("turn-start", {
                   session_id: sessionID,
                   prompt: part.text ?? "",
                   model: currentModel ?? "",

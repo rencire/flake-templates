@@ -16,8 +16,10 @@
 # =============================================================
 
 .Trash-*
-.nfs*                  # NFS lock files
-.directory             # KDE/Dolphin folder settings
+# NFS lock files
+.nfs*
+# KDE/Dolphin folder settings
+.directory
 
 # =============================================================
 # OS — Windows
@@ -41,7 +43,8 @@ $RECYCLE.BIN/
 *~
 .netrwhist
 Session.vim
-tags                   # ctags / universal-ctags
+# ctags / universal-ctags
+tags
 .tags
 
 # =============================================================
@@ -65,10 +68,12 @@ tramp
 # .vscode/ is debated — extensions.json and settings.json
 # are often committed for team consistency.
 # Ignore only the personal/local files:
-.vscode/settings.json      # if you prefer personal settings unshared
+.vscode/settings.json
 .vscode/*.code-workspace
-.vscode/launch.json        # often machine-specific paths
-.history/                  # Local History extension
+# often machine-specific paths
+.vscode/launch.json
+# Local History extension
+.history/
 
 # =============================================================
 # Editors — JetBrains (IntelliJ, CLion, etc.)
@@ -109,11 +114,14 @@ out/
 *.temp
 *.bak
 *.orig
-*.rej                  # patch reject files
+# patch reject files
+*.rej
 *.log
-core                   # core dumps
+# core dumps
+core
 core.*
-vgcore.*               # Valgrind
+# Valgrind
+vgcore.*
 *.pid
 *.seed
 *.stackdump
@@ -143,8 +151,8 @@ id_ed25519
 id_ed25519.*
 id_ecdsa
 id_ecdsa.*
-*.pub                # optional — pub keys are safe, but some
-                     # prefer to keep the pair together and ignore both
+# optional — pub keys are safe, but some prefer to keep the pair together and ignore both
+*.pub
 
 # GPG / age
 *.gpg
@@ -165,10 +173,12 @@ trustdb.gpg
 *.secrets
 auth.json
 credentials.json
-service-account*.json   # GCP service accounts
+# GCP service accounts
+service-account*.json
 
 # AWS
-.aws/credentials        # note: .aws/config is usually safe to commit
+# .aws/config is usually safe to commit
+.aws/credentials
 *.aws
 
 # Vault / sops
@@ -177,7 +187,8 @@ service-account*.json   # GCP service accounts
 secrets.yaml
 secrets.json
 secrets.toml
-*.dec                   # decrypted output files
+# decrypted output files
+*.dec
 
 # HashiCorp Vault tokens
 .vault-token
@@ -189,7 +200,8 @@ kubeconfig.*
 # $KUBECONFIG is often ~/.kube/config, but if in-repo, ignore it
 
 # Terraform
-*.tfvars              # often contains secrets
+# often contains secrets
+*.tfvars
 # *.tfvars.json       # same
 # terraform.tfstate   # contains sensitive resource data
 # .terraform/         # local plugin cache, not secrets but large
@@ -227,9 +239,10 @@ result-*
 # -------------------------------------------------------------
 
 # Aider adds these itself on first run, but explicit is better
-.aider.chat.history.md   # session chat log
-.aider.input.history     # readline input history
-.aider.tags.cache.v*/    # repo-map tag cache
+# Chat log, readline history, repo-map tag cache
+.aider.chat.history.md
+.aider.input.history
+.aider.tags.cache.v*/
 
 # ---------------------------------------------------------------
 # Skills — externally managed (synced by tooling, not owned here)
@@ -240,16 +253,17 @@ result-*
 .agents/skills/
 
 # Holdouts that don't read .agents/skills/
-.claude/skills/       # Claude Code
-.kiro/skills/         # Kiro
-.factory/skills/      # Factory / Droid
+.claude/skills/
+.kiro/skills/
+.factory/skills/
 
 # ---------------------------------------------------------------
 # Amp
 # ---------------------------------------------------------------
 # .amp/settings.json  → COMMIT (shared MCP servers, permissions)
 # .amp/tools/         → COMMIT if team-shared, else add below
-.agents/checks/       # Amp code-review checks (if externally managed)
+# Amp code-review checks (if externally managed)
+.agents/checks/
 
 # ---------------------------------------------------------------
 # Claude Code
