@@ -74,7 +74,7 @@
           entire = inputs."entire-cli-nix".packages.${pkgs.system}.entire;
         };
       agenticTemplate = {
-        path = ./agentic;
+        path = ./templates/agentic;
         description = "Flake for local LLM agent workflows with entire";
       };
     in
@@ -117,36 +117,36 @@
         };
       templates = {
         hello = {
-          path = ./hello;
+          path = ./templates/hello;
           description = "Minimal flake with hello program";
         };
         flakelight-module = {
-          path = ./flakelight-module;
+          path = ./templates/flakelight-module;
           description = "Flake for creating a flakelight module";
         };
         flakelight-package = {
-          path = ./flakelight-package;
+          path = ./templates/flakelight-package;
           description = "Flake for creating a flakelight default package";
         };
         minimal = {
-          path = ./minimal;
+          path = ./templates/minimal;
           description = "A very basic flake with direnv support";
         };
         agentic = agenticTemplate;
         nodejs = {
-          path = ./nodejs;
+          path = ./templates/nodejs;
           description = "Flake for nodejs development";
         };
         python = {
-          path = ./python;
+          path = ./templates/python;
           description = "Flake for python development";
         };
         rust = {
-          path = ./rust;
+          path = ./templates/rust;
           description = "Flake for rust development";
         };
         tauri = {
-          path = ./tauri;
+          path = ./templates/tauri;
           description = "Flake for creating tauri projects";
         };
       };
