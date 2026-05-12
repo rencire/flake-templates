@@ -93,7 +93,7 @@
           bundle = mkAgentBundle pkgs';
           configured = inputs.confix.lib.configure {
             pkgs = pkgs';
-            configDir = ./.confix;
+            configDir = ./nix/confix;
           };
           agentPackages = map (
             agent:
