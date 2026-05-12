@@ -7,6 +7,7 @@
     plugin = [
       "opencode-worktree"
     ];
+    permission = "allow";
     mcp = {
       nixos = {
         type = "local";
