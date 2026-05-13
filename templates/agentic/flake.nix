@@ -18,10 +18,16 @@
       url = "github:garrytan/gstack";
       flake = false;
     };
-    entire-cli-nix = {
-      url = "github:rencire/entire-cli-nix";
+    entire-cli-flake = {
+      url = "github:rencire/entire-cli-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.personal-skills.follows = "rencire-skills";
+      inputs.flakelight.follows = "flakelight";
+      inputs.agent-skills.follows = "agent-skills";
+      inputs.rencire-skills.follows = "rencire-skills";
+      inputs.llm-agents.follows = "llm-agents";
+      inputs.wofr.follows = "wofr";
+      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
+      inputs.confix.follows = "confix";
     };
     nix-wrapper-modules = {
       url = "github:rencire/nix-wrapper-modules/feat/wofr-wrapper";
@@ -30,6 +36,13 @@
     wofr = {
       url = "github:rencire/wofr";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flakelight.follows = "flakelight";
+      inputs.agent-skills.follows = "agent-skills";
+      inputs.personal-skills.follows = "rencire-skills";
+      inputs.entire-cli-nix.follows = "entire-cli-flake";
+      inputs.llm-agents.follows = "llm-agents";
+      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
+      inputs.confix.follows = "confix";
     };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
@@ -38,6 +51,7 @@
     confix = {
       url = "github:rencire/confix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flakelight.follows = "flakelight";
       inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
     };
   };

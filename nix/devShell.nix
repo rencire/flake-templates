@@ -10,7 +10,7 @@ let
   pkgs' = (pkgs.extend inputs."llm-agents".overlays.shared-nixpkgs).extend (
     _: prev: {
       wofr = inputs'.wofr.packages.default;
-      entire = inputs'."entire-cli-nix".packages.default;
+      entire = inputs'."entire-cli-flake".packages.default;
     }
   );
   configured = inputs.confix.lib.configure {
