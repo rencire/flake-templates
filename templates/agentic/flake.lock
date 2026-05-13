@@ -337,7 +337,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "personal-skills": "personal-skills"
+        "personal-skills": [
+          "rencire-skills"
+        ]
       },
       "locked": {
         "lastModified": 1778544320,
@@ -891,23 +893,7 @@
         "type": "github"
       }
     },
-    "personal-skills_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1778456754,
-        "narHash": "sha256-vFyNEgAcm+ivMG69ADyKVTEje7J13e/SyYLfkLTZyEo=",
-        "owner": "rencire",
-        "repo": "agent-skills",
-        "rev": "6d686aa1bbe80ba419ab13a9c6cf87697b7f6f30",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rencire",
-        "repo": "agent-skills",
-        "type": "github"
-      }
-    },
-    "personal-skills_3": {
+    "rencire-skills": {
       "flake": false,
       "locked": {
         "lastModified": 1778456754,
@@ -933,7 +919,7 @@
         "llm-agents": "llm-agents_2",
         "nix-wrapper-modules": "nix-wrapper-modules_2",
         "nixpkgs": "nixpkgs_4",
-        "personal-skills": "personal-skills_2",
+        "rencire-skills": "rencire-skills",
         "wofr": "wofr"
       }
     },
@@ -1058,7 +1044,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "personal-skills": "personal-skills_3"
+        "personal-skills": "personal-skills"
       },
       "locked": {
         "lastModified": 1778553725,

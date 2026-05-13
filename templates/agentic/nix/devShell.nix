@@ -1,8 +1,11 @@
 { inputs, inputs', pkgs, ... }:
 let
   agentSkillsLib = inputs."agent-skills".lib."agent-skills";
+  agentSkillsConfig = import ./agent-skills-config.nix;
   agentBundle = import ./agent-bundle.nix {
     inherit agentSkillsLib inputs;
+    lib = pkgs.lib;
+    inherit (agentSkillsConfig) skillSets formats;
   };
   pkgs' = (pkgs.extend inputs."llm-agents".overlays.shared-nixpkgs).extend (
     _: prev: {

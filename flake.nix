@@ -10,7 +10,7 @@
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    personal-skills = {
+    rencire-skills = {
       url = "github:rencire/agent-skills";
       flake = false;
     };
@@ -21,6 +21,7 @@
     entire-cli-nix = {
       url = "github:rencire/entire-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.personal-skills.follows = "rencire-skills";
     };
     wofr = {
       url = "github:rencire/wofr";
