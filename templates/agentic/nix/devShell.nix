@@ -1,7 +1,7 @@
 { inputs, inputs', pkgs, ... }:
 let
   agentSkillsLib = inputs."agent-skills".lib."agent-skills";
-  agentSkillsConfig = import ./agent-skills-config.nix;
+  agentSkillsConfig = import ./config/agent-skills-config.nix;
   agentBundle = import ./agent-bundle.nix {
     inherit agentSkillsLib inputs;
     lib = pkgs.lib;
