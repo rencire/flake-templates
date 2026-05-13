@@ -1,9 +1,9 @@
-{
-  agentSkillsLib,
-  inputs,
-  lib,
-  skillSets,
-  formats,
+{ agentSkillsLib
+, inputs
+, lib
+, skillSets
+, formats
+,
 }:
 let
   baseNameOf = path:
@@ -18,36 +18,39 @@ let
       [ "name: ${newName}" ]
       text;
 
-  mkPrefixedSkills = {
-    source,
-    prefix,
-    skills,
-  }:
+  mkPrefixedSkills =
+    { source
+    , prefix
+    , skills
+    ,
+    }:
     builtins.listToAttrs (
-      builtins.map (
-        path:
-        let
-          baseName = baseNameOf path;
-          prefixedName = "${prefix}-${baseName}";
-        in
-        {
-          name = prefixedName;
-          value = {
-            from = source;
-            inherit path;
-            rename = prefixedName;
-            transform = { original, ... }:
-              builtins.replaceStrings
-                [ "~/.gstack/" ]
-                [ "\${GSTACK_HOME:-\$HOME/.gstack}/" ]
-                (rewriteSkillName {
-                  oldName = baseName;
-                  newName = prefixedName;
-                  text = original;
-                });
-          };
-        }
-      ) skills
+      builtins.map
+        (
+          path:
+          let
+            baseName = baseNameOf path;
+            prefixedName = "${prefix}-${baseName}";
+          in
+          {
+            name = prefixedName;
+            value = {
+              from = source;
+              inherit path;
+              rename = prefixedName;
+              transform = { original, ... }:
+                builtins.replaceStrings
+                  [ "~/.gstack/" ]
+                  [ "\${GSTACK_HOME:-\$HOME/.gstack}/" ]
+                  (rewriteSkillName {
+                    oldName = baseName;
+                    newName = prefixedName;
+                    text = original;
+                  });
+            };
+          }
+        )
+        skills
     );
 
   mkSource = name: cfg:
@@ -60,15 +63,18 @@ let
 
   sources = builtins.mapAttrs mkSource skillSets;
 
-  explicitSkills = lib.foldlAttrs (
-    acc: name: cfg:
-    acc
-    // mkPrefixedSkills {
-      source = name;
-      prefix = cfg.prefix or name;
-      skills = cfg.skills;
-    }
-  ) { } skillSets;
+  explicitSkills = lib.foldlAttrs
+    (
+      acc: name: cfg:
+        acc
+        // mkPrefixedSkills {
+          source = name;
+          prefix = cfg.prefix or name;
+          skills = cfg.skills;
+        }
+    )
+    { }
+    skillSets;
 
   catalog = agentSkillsLib.discoverCatalog sources;
   allowlist = agentSkillsLib.allowlistFor {
@@ -77,15 +83,17 @@ let
   };
 
   enabledTargets = builtins.listToAttrs (
-    builtins.map (
-      name:
-      {
-        inherit name;
-        value = agentSkillsLib.defaultLocalTargets.${name} // {
-          enable = true;
-        };
-      }
-    ) formats
+    builtins.map
+      (
+        name:
+        {
+          inherit name;
+          value = agentSkillsLib.defaultLocalTargets.${name} // {
+            enable = true;
+          };
+        }
+      )
+      formats
   );
 
   bundle =

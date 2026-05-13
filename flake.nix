@@ -16,25 +16,12 @@
       url = "github:rencire/nix-wrapper-modules/feat/wofr-wrapper";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    wofr = {
-      url = "github:rencire/wofr";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flakelight.follows = "flakelight";
-      inputs.confix.follows = "confix";
-      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
-      inputs.entire-cli-flake.follows = "entire-cli-flake";
-      inputs.llm-agents.follows = "llm-agents";
-      inputs.agent-skills.follows = "agent-skills";
-      inputs.rencire-skills.follows = "rencire-skills";
-      inputs.gstack.follows = "gstack";
-    };
     entire-cli-flake = {
       url = "github:rencire/entire-cli-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flakelight.follows = "flakelight";
       inputs.confix.follows = "confix";
       inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
-      inputs.wofr.follows = "wofr";
       inputs.llm-agents.follows = "llm-agents";
       inputs.agent-skills.follows = "agent-skills";
       inputs.rencire-skills.follows = "rencire-skills";

@@ -9,7 +9,6 @@ let
   };
   pkgs' = (pkgs.extend inputs."llm-agents".overlays.shared-nixpkgs).extend (
     _: prev: {
-      wofr = inputs'.wofr.packages.default;
       entire = inputs'."entire-cli-flake".packages.default;
     }
   );
@@ -24,7 +23,6 @@ in
     pkgs'.git
     pkgs'.entire
     configured.opencode
-    configured.wofr
     # pkgs'.llm-agents.claude-code
     # pkgs'.llm-agents.codex
     # pkgs'.llm-agents.gemini-cli

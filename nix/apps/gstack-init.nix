@@ -34,7 +34,8 @@ let
 
     echo "gstack-init complete"
   '';
-in {
+in
+{
   type = "app";
   program = "${script}";
 }
