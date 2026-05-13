@@ -24,25 +24,25 @@
         withOverlays = [ inputs.fenix.overlays.default ];
         devShell.packages =
           pkgs:
-          with pkgs;
-          [
-            # Add general cross platform tools here
-            (inputs'.fenix.packages.complete.withComponents [
-              "cargo"
-              "clippy"
-              "rust-src"
-              "rustc"
-              "rustfmt"
-            ])
-            rust-analyzer-nightly
-            nodejs_20
-          ]
-          ++ (lib.optionals stdenv.isDarwin [
-            # Add macos specific dependencies here
-            libiconv
-            darwin.apple_sdk.frameworks.Cocoa
-            darwin.apple_sdk.frameworks.WebKit
-          ]);
+            with pkgs;
+            [
+              # Add general cross platform tools here
+              (inputs'.fenix.packages.complete.withComponents [
+                "cargo"
+                "clippy"
+                "rust-src"
+                "rustc"
+                "rustfmt"
+              ])
+              rust-analyzer-nightly
+              nodejs_20
+            ]
+            ++ (lib.optionals stdenv.isDarwin [
+              # Add macos specific dependencies here
+              libiconv
+              darwin.apple_sdk.frameworks.Cocoa
+              darwin.apple_sdk.frameworks.WebKit
+            ]);
       }
     );
 }

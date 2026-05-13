@@ -4,8 +4,11 @@ description:
   Search Entire checkpoint history and transcripts with `entire search --json`.
   Use proactively when the user asks about previous work, commits, sessions,
   prompts, or historical context in this repository.
-tools: Bash
-model: haiku
+kind: local
+tools:
+  - run_shell_command
+max_turns: 6
+timeout_mins: 5
 ---
 
 <!-- ENTIRE-MANAGED SEARCH SUBAGENT v1 -->

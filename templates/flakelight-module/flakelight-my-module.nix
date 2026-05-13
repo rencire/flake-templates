@@ -1,9 +1,8 @@
-{
-  config,
-  lib,
-  flakelight,
-  moduleArgs,
-  ...
+{ config
+, lib
+, flakelight
+, moduleArgs
+, ...
 }:
 let
   inherit (lib) mkOption mkIf mkMerge;

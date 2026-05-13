@@ -1,6 +1,5 @@
 # Notes
 
-
 ```
 nix develop
 python -m venv .venv

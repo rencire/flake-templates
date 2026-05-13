@@ -1,14 +1,17 @@
 # Note
+
 To expose a default package, create a `_default.nix`.
 
 e.g.
+
 ```
 packages/
 ├── _default.nix  # This becomes packages.${system}.default
-  
+
 ```
 
-e.g. packages/_default.nix
+e.g. packages/\_default.nix
+
 ```nix
 {
   lib,

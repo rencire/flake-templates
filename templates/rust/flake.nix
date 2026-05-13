@@ -14,11 +14,10 @@
   inputs.crane.url = "github:ipetkov/crane";
 
   outputs =
-    {
-      flakelight,
-      fenix,
-      crane,
-      ...
+    { flakelight
+    , fenix
+    , crane
+    , ...
     }@inputs:
     flakelight ./. {
       inherit inputs;
