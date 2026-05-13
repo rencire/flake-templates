@@ -20,6 +20,7 @@ let
 in
 {
   packages = [
+    pkgs'.bun
     pkgs'.git
     pkgs'.entire
     configured.opencode
@@ -28,6 +29,7 @@ in
     # pkgs'.llm-agents.codex
     # pkgs'.llm-agents.gemini-cli
   ];
+  env.GSTACK_HOME = ".gstack";
   shellHook = agentSkillsLib.mkShellHook {
     pkgs = pkgs';
     bundle = agentBundle.bundle pkgs';

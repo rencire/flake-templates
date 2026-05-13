@@ -4,3 +4,4 @@
 - Use `git` for version-control tasks in this repository.
 - Keep changes small and reviewable.
 - If a tool session stops tracking state, start a fresh session instead of trying to recover by rewriting history.
+- `GSTACK_HOME=.gstack` — gstack data lives in the repo, not `~/.gstack/`.

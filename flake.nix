@@ -23,9 +23,10 @@
       inputs.confix.follows = "confix";
       inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
       inputs.entire-cli-flake.follows = "entire-cli-flake";
-      inputs.llm-agents.follows = "llm-agents";      
+      inputs.llm-agents.follows = "llm-agents";
       inputs.agent-skills.follows = "agent-skills";
       inputs.rencire-skills.follows = "rencire-skills";
+      inputs.gstack.follows = "gstack";
     };
     entire-cli-flake = {
       url = "github:rencire/entire-cli-flake";

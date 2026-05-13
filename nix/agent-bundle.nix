@@ -37,11 +37,14 @@ let
             inherit path;
             rename = prefixedName;
             transform = { original, ... }:
-              rewriteSkillName {
-                oldName = baseName;
-                newName = prefixedName;
-                text = original;
-              };
+              builtins.replaceStrings
+                [ "~/.gstack/" ]
+                [ "\${GSTACK_HOME:-\$HOME/.gstack}/" ]
+                (rewriteSkillName {
+                  oldName = baseName;
+                  newName = prefixedName;
+                  text = original;
+                });
           };
         }
       ) skills
