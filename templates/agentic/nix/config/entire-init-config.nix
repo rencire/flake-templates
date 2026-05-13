@@ -1,8 +1,13 @@
 {
   enable = true;
   agents = [ "opencode" ];
-  checkpoint_remote = {
-    provider = "github";
-    repo = "<owner>/<repo>";
+  settings = {
+    telemetry = false;
+    strategy_options = {
+      checkpoint_remote = {
+        provider = "github";
+        repo = "<owner>/<repo>";
+      };
+    };
   };
 }
