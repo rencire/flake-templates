@@ -6,6 +6,42 @@
       url = "github:accelbread/flakelight";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    confix = {
+      url = "github:rencire/confix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flakelight.follows = "flakelight";
+      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
+    };
+    nix-wrapper-modules = {
+      url = "github:rencire/nix-wrapper-modules/feat/wofr-wrapper";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    wofr = {
+      url = "github:rencire/wofr";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flakelight.follows = "flakelight";
+      inputs.confix.follows = "confix";
+      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
+      inputs.entire-cli-flake.follows = "entire-cli-flake";
+      inputs.llm-agents.follows = "llm-agents";      
+      inputs.agent-skills.follows = "agent-skills";
+      inputs.rencire-skills.follows = "rencire-skills";
+    };
+    entire-cli-flake = {
+      url = "github:rencire/entire-cli-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flakelight.follows = "flakelight";
+      inputs.confix.follows = "confix";
+      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
+      inputs.wofr.follows = "wofr";
+      inputs.llm-agents.follows = "llm-agents";
+      inputs.agent-skills.follows = "agent-skills";
+      inputs.rencire-skills.follows = "rencire-skills";
+    };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     agent-skills = {
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,42 +53,6 @@
     gstack = {
       url = "github:garrytan/gstack";
       flake = false;
-    };
-    entire-cli-flake = {
-      url = "github:rencire/entire-cli-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flakelight.follows = "flakelight";
-      inputs.agent-skills.follows = "agent-skills";
-      inputs.rencire-skills.follows = "rencire-skills";
-      inputs.llm-agents.follows = "llm-agents";
-      inputs.wofr.follows = "wofr";
-      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
-      inputs.confix.follows = "confix";
-    };
-    wofr = {
-      url = "github:rencire/wofr";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flakelight.follows = "flakelight";
-      inputs.agent-skills.follows = "agent-skills";
-      inputs.personal-skills.follows = "rencire-skills";
-      inputs.entire-cli-nix.follows = "entire-cli-flake";
-      inputs.llm-agents.follows = "llm-agents";
-      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
-      inputs.confix.follows = "confix";
-    };
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-wrapper-modules = {
-      url = "github:rencire/nix-wrapper-modules/feat/wofr-wrapper";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    confix = {
-      url = "github:rencire/confix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flakelight.follows = "flakelight";
-      inputs.nix-wrapper-modules.follows = "nix-wrapper-modules";
     };
   };
 
