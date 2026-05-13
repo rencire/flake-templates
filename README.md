@@ -32,7 +32,7 @@ Then bootstrap Entire in the generated project:
 ```
 cd my_agentic_project
 nix develop
-nix run .#entire-init
+nix run .#setup-entire
 ```
 
 This writes Entire and agent config into the repo, such as `.entire/` and

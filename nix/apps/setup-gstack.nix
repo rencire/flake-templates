@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 let
   inherit (pkgs) lib;
-  gstackCfg = import ../config/gstack-init-config.nix;
+  gstackCfg = import ../config/setup-gstack-config.nix;
   script = pkgs.writeShellScript "gstack-init" ''
     set -euo pipefail
     export PATH="${pkgs.bun}/bin:$PATH"

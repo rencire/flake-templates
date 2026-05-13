@@ -2,7 +2,7 @@
 let
   inherit (pkgs) lib;
   system = pkgs.stdenv.hostPlatform.system;
-  cfg = import ../config/entire-init-config.nix;
+  cfg = import ../config/setup-entire-config.nix;
   entire = inputs."entire-cli-flake".packages.${system}.default;
   settingsJson = builtins.toJSON ({ enabled = true; } // cfg.settings);
   script = pkgs.writeShellScript "entire-init" ''
