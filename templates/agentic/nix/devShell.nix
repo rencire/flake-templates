@@ -2,7 +2,7 @@
 let
   agentSkillsLib = inputs."agent-skills".lib."agent-skills";
   agentSkillsConfig = import ./config/agent-skills-config.nix;
-  agentBundle = import ./agent-bundle.nix {
+  agentBundle = import ./lib/agent-bundle.nix {
     inherit agentSkillsLib inputs;
     lib = pkgs.lib;
     inherit (agentSkillsConfig) skillSets formats;
