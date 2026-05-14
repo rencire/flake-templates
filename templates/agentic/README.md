@@ -14,6 +14,7 @@ Writes `.entire/settings.json` from `nix/config/setup-entire-config.nix`, then
 calls `entire enable -y` and `entire agent add` for each configured agent.
 
 What it creates:
+
 - `.entire/settings.json` — entire project config (checkpoint remote, telemetry)
 - `.entire/.gitignore` — keeps session data out of version control
 - Git hooks (`prepare-commit-msg`, `commit-msg`, `post-commit`, `pre-push`) —
@@ -24,8 +25,7 @@ What it creates:
   history
 - Agent-specific config dirs (`.opencode/`, etc.)
 
-Configure agents and checkpoint remote in
-`nix/config/setup-entire-config.nix`.
+Configure agents and checkpoint remote in `nix/config/setup-entire-config.nix`.
 
 To disable: set `enable = false` in the config, then run the app again to call
 `entire disable --project`.
@@ -36,8 +36,9 @@ Copies gstack from the Nix store to `.gstack/repos/gstack`, then runs gstack's
 `./setup` script for each configured host and agent.
 
 What it creates:
-- `.gstack/repos/gstack/` — local copy of the gstack repo with compiled
-  binaries (browse, design, make-pdf, etc.)
+
+- `.gstack/repos/gstack/` — local copy of the gstack repo with compiled binaries
+  (browse, design, make-pdf, etc.)
 - Symlinks to agent skill directories (`~/.claude/skills/gstack/`,
   `~/.config/opencode/skills/gstack/`) — one per host in `extraHosts`
 - Skills prefixed with `gstack-*` for namespace clarity (e.g., `gstack-review`,
@@ -46,8 +47,7 @@ What it creates:
   `team.mode = "required"` — prevents Skill use without gstack installed
 - Updates CLAUDE.md with a `## gstack (REQUIRED)` section
 
-Configure hosts and team mode in
-`nix/config/setup-gstack-config.nix`.
+Configure hosts and team mode in `nix/config/setup-gstack-config.nix`.
 
 Idempotent: safe to re-run. Only copies gstack from the Nix store if
 `.gstack/repos/gstack/` doesn't already exist.
