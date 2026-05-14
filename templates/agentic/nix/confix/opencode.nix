@@ -6,6 +6,7 @@
     "$schema" = "https://opencode.ai/config.json";
     plugin = [
       "opencode-worktree"
+      "superpowers@git+https://github.com/obra/superpowers.git"
     ];
     permission = "allow";
     mcp = {
